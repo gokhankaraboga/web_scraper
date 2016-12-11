@@ -11,10 +11,11 @@ links = []
 authors = []
 authors_links = []
 infos = []
+source_code = None
 
 
 def socrates_scraper(**kwargs):
-    global infos, titles, authors, links, authors_links
+    global infos, titles, authors, links, authors_links, source_code
     response = requests.get(kwargs['url'])
     source_code = html.fromstring(response.content)
 
@@ -46,6 +47,10 @@ for i in xrange(1, page_count + 1):
     t.start()
     t.join()
 
+    onemsiz = source_code
+    pass
+
+
 infos = [info.strip('\n\t\t\t') for info in infos]
 
 new_file_name = os.path.join('/Users/gokhankaraboga/Desktop',
@@ -56,5 +61,3 @@ with open(new_file_name, 'wb') as csvfile:
     writer.writerow(['Title', 'Author', 'Info', 'Link', 'Author Link'])
     for row in rows:
         writer.writerow(row)
-
-        # unicode(row).encode("utf-8")
